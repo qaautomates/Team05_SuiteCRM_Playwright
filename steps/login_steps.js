@@ -7,6 +7,7 @@ import {login} from './../pages/loginPage.js';
 
 let loginObj;
 
+
 Given('User is in suiteCRM login page', async ({page}) => {
     loginObj = new login(page);
     await loginObj.launchApp();

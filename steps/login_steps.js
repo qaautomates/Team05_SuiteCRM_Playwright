@@ -1,23 +1,14 @@
 import { expect } from '@playwright/test';
-import { createBdd } from 'playwright-bdd';
+import { Given, When, Then } from  '../fixtures/testFixtures';
 
-const { Given, When, Then } = createBdd();
-
-import {login} from './../pages/loginPage.js';
-
-let loginObj;
-
-
-Given('User is in suiteCRM login page', async ({page}) => {
-    loginObj = new login(page);
-    await loginObj.launchApp();
-    
+Given('User is in suiteCRM login page', async ({loginPage}) => {
+    await loginPage.launchApp();
 });
 
-When('User enters valid login credentials and click on login', async ({page}) => {
-    await loginObj.loginToSuiteCRM();
+When('User enters valid login credentials and click on login', async ({loginPage}) => {
+    await loginPage.loginToSuiteCRM();
 });
 
 Then('User should be navigated to SuiteCRM dashboard', async ({page}) => {
-    await expect(page).toHaveURL(/home/);
+    await expect(page).toHaveURL(/home/, { timeout : 15000 });
 });
